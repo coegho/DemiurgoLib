@@ -34,7 +34,7 @@ public interface ServerInterface extends Remote {
 	 * @return
 	 * @throws java.rmi.RemoteException
 	 */
-	public UserInterface me(String token) throws java.rmi.RemoteException;
+	public UserData me(String token) throws java.rmi.RemoteException;
 
 	/**
 	 * Returns a room.
@@ -45,7 +45,7 @@ public interface ServerInterface extends Remote {
 	 *            Room's path.
 	 * @throws java.rmi.RemoteException
 	 */
-	public WorldRoomInterface checkRoom(String token, String path) throws java.rmi.RemoteException;
+	public WorldRoomData checkRoom(String token, String path) throws java.rmi.RemoteException;
 
 	/**
 	 * Executes code related to an action.
