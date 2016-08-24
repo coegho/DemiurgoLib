@@ -14,21 +14,44 @@ import java.util.List;
 public interface ServerInterface extends Remote {
 
 	/**
-	 * Checks the room's contents.
+	 * Returns a Token identifying the user, or null if login fails.
 	 * 
 	 * @param world
 	 *            World's name.
+	 * @param name
+	 *            User name.
+	 * @param password
+	 *            User password.
+	 * @return
+	 */
+	public String login(String world, String name, String password) throws java.rmi.RemoteException;
+
+	/**
+	 * Returns an User object relative to the user.
+	 * 
+	 * @param token
+	 *            Authentication token.
+	 * @return
+	 * @throws java.rmi.RemoteException
+	 */
+	public UserInterface me(String token) throws java.rmi.RemoteException;
+
+	/**
+	 * Returns a room.
+	 * 
+	 * @param token
+	 *            Authentication token.
 	 * @param path
 	 *            Room's path.
 	 * @throws java.rmi.RemoteException
 	 */
-	public List<SerializableWorldObject> checkRoom(String world, String path) throws java.rmi.RemoteException;
+	public WorldRoomInterface checkRoom(String token, String path) throws java.rmi.RemoteException;
 
 	/**
 	 * Executes code related to an action.
 	 * 
-	 * @param world
-	 *            World's name.
+	 * @param token
+	 *            Authentication token.
 	 * @param path
 	 *            Current room's path.
 	 * @param code
@@ -36,13 +59,13 @@ public interface ServerInterface extends Remote {
 	 * @return
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean executeCode(String world, String path, String code) throws java.rmi.RemoteException;
+	public boolean executeCode(String token, String path, String code) throws java.rmi.RemoteException;
 
 	/**
 	 * Creates a new class into the world.
 	 * 
-	 * @param world
-	 *            World's name.
+	 * @param token
+	 *            Authentication token.
 	 * @param name
 	 *            New class' name.
 	 * @param code
@@ -50,52 +73,50 @@ public interface ServerInterface extends Remote {
 	 * @return
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean newClass(String world, String name, String code) throws java.rmi.RemoteException;
+	public boolean newClass(String token, String name, String code) throws java.rmi.RemoteException;
 
 	/**
 	 * Creates a new room.
 	 * 
-	 * @param world
-	 *            World's name.
+	 * @param token
+	 *            Authentication token.
 	 * @param path
 	 *            New room's path.
 	 * @return
 	 * @throws java.rmi.RemoteException
 	 */
-	public boolean createRoom(String world, String path) throws java.rmi.RemoteException;
+	public boolean createRoom(String token, String path) throws java.rmi.RemoteException;
 
 	/**
 	 * Submits a decision from an user.
 	 * 
-	 * @param world
-	 *            World's name.
+	 * @param token
+	 *            Authentication token.
 	 * @param user
 	 *            User who submit his decision. //TODO: identify users
 	 * @param text
 	 *            Decision's text.
 	 * @throws java.rmi.RemoteException
 	 */
-	public void submitDecision(String world, String user, String text) throws java.rmi.RemoteException;
+	public void submitDecision(String token, String text) throws java.rmi.RemoteException;
 
 	/**
 	 * Returns a list with all the rooms with pending decisions.
 	 * 
-	 * @param world
-	 *            World's name.
+	 * @param token
+	 *            Authentication token.
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<String> getPendingRooms(String world) throws RemoteException;
-	
+	public List<String> getPendingRooms(String token) throws RemoteException;
+
 	/**
-	 * Returns a list with all decisions submitted on a room.
+	 * Returns a list with all decisions submitted outside a room.
 	 * 
-	 * @param world
-	 *            World's name.
-	 * @param room
-	 *            Room's path.
+	 * @param token
+	 *            Authentication token.
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<SerializableDecision> getDecisions(String world, String room) throws RemoteException;
+	public List<Decision> getNoRoomDecisions(String token) throws RemoteException;
 }

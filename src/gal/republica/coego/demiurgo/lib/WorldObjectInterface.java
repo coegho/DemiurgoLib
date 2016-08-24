@@ -2,7 +2,7 @@ package gal.republica.coego.demiurgo.lib;
 
 import java.io.Serializable;
 
-public interface SerializableWorldObject extends Serializable {
+public interface WorldObjectInterface extends Serializable {
 
 	public long getId();
 
@@ -12,5 +12,5 @@ public interface SerializableWorldObject extends Serializable {
 
 	public String getUsername();
 
-	public SerializableValue getField(String name);
+	public ValueInterface getField(String name);
 }

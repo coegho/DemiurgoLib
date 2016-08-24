@@ -2,7 +2,7 @@ package gal.republica.coego.demiurgo.lib;
 
 import java.io.Serializable;
 
-public class SerializableDecision implements Serializable {
+public class Decision implements Serializable {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class SerializableDecision implements Serializable {
 	protected String room_path;
 	protected String text;
 
-	public SerializableDecision(String username, String room_path, String text) {
+	public Decision(String username, String room_path, String text) {
 		super();
 		this.username = username;
 		this.room_path = room_path;
